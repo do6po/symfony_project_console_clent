@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  console:
+    build:
+      context: ./
+      dockerfile: docker/prod/Dockerfile
+    container_name: 'console'
+    hostname: 'console'
+    volumes:
+      - ./:/app:rw,cached
+    working_dir: /app
+    environment:
+      - COMPOSER_ALLOW_SUPERUSER=1
+    restart: always
+    command: ["/bin/sh", "/usr/bin/php_init.sh"]
