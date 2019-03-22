@@ -1,4 +1,12 @@
-.checkout
-=========
+# Symfony project console client
 
-A Symfony project created on March 19, 2019, 12:10 pm.
+### Installation:
+Docker required;
+#### For dev:
+```bash
+make dev
+```
+#### For prod:
+```bash
+make prod
+```
