@@ -12,8 +12,12 @@ use Symfony\Component\Dotenv\Dotenv;
 
 class EnvConfig
 {
-    public function __construct()
+    protected $environment;
+
+    public function __construct(string $environment)
     {
+        $this->environment = $environment;
+
         $this->init();
     }
 
@@ -21,7 +25,14 @@ class EnvConfig
     protected function init()
     {
         $dotenv = new Dotenv();
-        $dotenv->load(__DIR__ . "/../../.env");
+
+        if ($this->environment === 'prod') {
+            $path = "/../../.env";
+        } else {
+            $path = "/../../.env.tests";
+        }
+
+        $dotenv->load(__DIR__ . $path);
     }
 
     public function getApiAddress(): string

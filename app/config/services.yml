@@ -33,3 +33,7 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    env_config:
+        class: Helpers\EnvConfig
+        arguments: ["%kernel.environment%"]
+        public: true

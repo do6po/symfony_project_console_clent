@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd /app
+cp -n .env.example .env
 
 chmod +x bin/console
 

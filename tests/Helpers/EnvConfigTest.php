@@ -10,21 +10,19 @@ namespace Tests\Helpers;
 
 
 use Helpers\EnvConfig;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use Tests\KernelTestCase;
 
-class EnvConfigTest extends TestCase
+class EnvConfigTest extends KernelTestCase
 {
     /**
      * @var EnvConfig
      */
     protected $env;
 
-
     public function setUp()
     {
         parent::setUp();
-
-        $this->env = new EnvConfig();
+        $this->env = $this->container->get('env_config');
     }
 
     public function testGetApiAddress()
