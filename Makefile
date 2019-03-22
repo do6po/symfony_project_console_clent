@@ -30,7 +30,7 @@ ssh_to_console:
 ####################################################
 #Работа с контейнерами
 #Установка
-install:
+prod:
 	$(d) network prune -f
 	$(build_command)
 	chmod +x console phpunit
@@ -38,9 +38,9 @@ install:
 ####################################################
 #Работа с контейнерами
 #Установка для разработки
-install_dev:
+dev:
 	$(d) network prune -f
-	$(dc) -f docker-compose.yml -f docker-compose.dev.yml up -d --build --force-recreate
+	CURRENT_UID=`id -u` CURRENT_GID=`id -g` CURRENT_USERNAME=`id -u -n` $(dc) -f docker-compose.yml -f docker-compose.dev.yml up -d --build --force-recreate
 	chmod +x console phpunit
 
 ####################################################

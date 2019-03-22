@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-cd /app
+chmod +x bin/console phpunit console
 
-chmod +x bin/console
-
-composer install --no-progress --prefer-dist --working-dir=/app
+composer install --no-progress --prefer-dist
 
 php bin/console cache:clear
 
-chmod 777 -R /app/var
+sudo -s
 
 exec php-fpm --nodaemonize

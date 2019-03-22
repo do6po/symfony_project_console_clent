@@ -2,6 +2,7 @@ FROM php:7.2-fpm-stretch
 
 RUN apt-get update \
 	&& apt-get install -y \
+	    sudo \
 		zip \
 		unzip \
 		nano \
@@ -35,3 +36,10 @@ RUN docker-php-ext-enable xdebug \
 
 COPY ./docker/dev/php_init.sh /usr/bin/
 RUN chmod +x  /usr/bin/php_init.sh
+
+ARG CURRENT_UID
+ARG CURRENT_USERNAME
+
+RUN useradd -u ${CURRENT_UID} ${CURRENT_USERNAME}
+RUN usermod -aG sudo ${CURRENT_USERNAME}
+RUN echo "${CURRENT_USERNAME}   ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
