@@ -1,0 +1,10 @@
+services:
+    app.user_service:
+        class: AppBundle\Services\UserService
+        public: true
+        autowire: true
+
+    app.user_repository:
+        class: AppBundle\Repository\UserRepository
+        public: true
+        autowire: true

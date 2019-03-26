@@ -14,7 +14,7 @@ class EnvConfig
 {
     protected $environment;
 
-    public function __construct(string $environment)
+    public function __construct(string $environment = 'prod')
     {
         $this->environment = $environment;
 
