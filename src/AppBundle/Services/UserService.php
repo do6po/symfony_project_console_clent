@@ -9,6 +9,7 @@
 namespace AppBundle\Services;
 
 
+use AppBundle\Entity\User;
 use AppBundle\Repository\UserRepository;
 
 class UserService
@@ -30,5 +31,15 @@ class UserService
     public function all(): array
     {
         return $this->userRepository->all();
+    }
+
+    /**
+     * @param User $user
+     * @return array|bool|float|int|string
+     * @throws \AppBundle\Exceptions\ResponseErrorException
+     */
+    public function add(User $user)
+    {
+        return $this->userRepository->add($user);
     }
 }
