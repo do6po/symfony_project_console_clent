@@ -38,7 +38,7 @@ class UserRepository extends AbstractRepository
             return $response->json();
         }
 
-        throw new ResponseErrorException(sprintf('Response error. Status code: %s', $response->getStatusCode()));
+        $this->throwResponseErrorException($response->getStatusCode());
     }
 
     /**
@@ -68,7 +68,7 @@ class UserRepository extends AbstractRepository
             }
         }
 
-        throw new ResponseErrorException(sprintf('Response error. Status code: %s', $response->getStatusCode()));
+        $this->throwResponseErrorException($response->getStatusCode());
     }
 
     /**
@@ -99,7 +99,7 @@ class UserRepository extends AbstractRepository
             }
         }
 
-        throw new ResponseErrorException(sprintf('Response error. Status code: %s', $response->getStatusCode()));
+        $this->throwResponseErrorException($response->getStatusCode());
     }
 
     /**
@@ -128,6 +128,6 @@ class UserRepository extends AbstractRepository
             }
         }
 
-        throw new ResponseErrorException(sprintf('Response error. Status code: %s', $response->getStatusCode()));
+        $this->throwResponseErrorException($response->getStatusCode());
     }
 }

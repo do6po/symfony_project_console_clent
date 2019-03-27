@@ -9,6 +9,7 @@
 namespace AppBundle\Repository;
 
 
+use AppBundle\Exceptions\ResponseErrorException;
 use Guzzle\Http\Client;
 use Helpers\EnvConfig;
 
@@ -43,5 +44,14 @@ abstract class AbstractRepository
     protected function generateUrl(string $path)
     {
         return sprintf('%s/%s/%s', $this->envConfig->getApiAddress(), $this->envConfig->getApiPrefix(), $path);
+    }
+
+    /**
+     * @param $statusCode
+     * @throws ResponseErrorException
+     */
+    protected function throwResponseErrorException($statusCode): void
+    {
+        throw new ResponseErrorException(sprintf('Response error. Status code: %s', $statusCode));
     }
 }

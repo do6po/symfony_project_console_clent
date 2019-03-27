@@ -10,6 +10,7 @@ namespace AppBundle\Services;
 
 
 use AppBundle\Entity\User;
+use AppBundle\Repository\GroupRepository;
 use AppBundle\Repository\UserRepository;
 
 class UserService
@@ -18,6 +19,11 @@ class UserService
      * @var UserRepository
      */
     private $userRepository;
+
+    /**
+     * @var GroupRepository
+     */
+    private $groupRepository;
 
     public function __construct(
         UserRepository $userRepository,
@@ -68,7 +74,12 @@ class UserService
         return $this->userRepository->delete($user);
     }
 
+    /**
+     * @return array
+     * @throws \AppBundle\Exceptions\ResponseErrorException
+     */
     public function groupAll()
     {
+        return $this->groupRepository->all();
     }
 }
