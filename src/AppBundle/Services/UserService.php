@@ -19,9 +19,13 @@ class UserService
      */
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(
+        UserRepository $userRepository,
+        GroupRepository $groupRepository
+    )
     {
         $this->userRepository = $userRepository;
+        $this->groupRepository = $groupRepository;
     }
 
     /**
@@ -62,5 +66,9 @@ class UserService
     public function delete(User $user): array
     {
         return $this->userRepository->delete($user);
+    }
+
+    public function groupAll()
+    {
     }
 }
