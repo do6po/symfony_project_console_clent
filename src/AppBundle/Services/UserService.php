@@ -35,11 +35,32 @@ class UserService
 
     /**
      * @param User $user
-     * @return array|bool|float|int|string
+     * @return array
      * @throws \AppBundle\Exceptions\ResponseErrorException
      */
-    public function add(User $user)
+    public function add(User $user): array
     {
         return $this->userRepository->add($user);
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     * @throws \AppBundle\Exceptions\ResponseErrorException
+     */
+    public function edit(User $user): array
+    {
+        return $this->userRepository->edit($user);
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     * @throws \AppBundle\Exceptions\NotFoundUserException
+     * @throws \AppBundle\Exceptions\ResponseErrorException
+     */
+    public function delete(User $user): array
+    {
+        return $this->userRepository->delete($user);
     }
 }

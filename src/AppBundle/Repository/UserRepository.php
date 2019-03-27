@@ -10,6 +10,7 @@ namespace AppBundle\Repository;
 
 
 use AppBundle\Entity\User;
+use AppBundle\Exceptions\NotFoundUserException;
 use AppBundle\Exceptions\ResponseErrorException;
 use AppBundle\Exceptions\ValidationErrorException;
 use Guzzle\Http\Client;
@@ -21,12 +22,18 @@ class UserRepository
 {
     const URL_USER_LIST = 'users';
     const URL_USER_CREATE = 'users';
+    const URL_USER_EDIT = 'users';
+    const URL_USER_DELETE = 'users';
 
     const METHOD_USER_LIST = 'GET';
     const METHOD_USER_CREATE = 'POST';
+    const METHOD_USER_EDIT = 'PUT';
+    const METHOD_USER_DELETE = 'DELETE';
 
-
-    protected $header = ['content-type' => 'application/json', 'Accept' => 'application/json'];
+    protected $header = [
+        'content-type' => 'application/json',
+        'Accept' => 'application/json'
+    ];
 
     /**
      * @var Client
@@ -51,7 +58,6 @@ class UserRepository
     public function all(): array
     {
         $url = $this->generateUrl(self::URL_USER_LIST);
-
         $response = $this->client
             ->createRequest(self::METHOD_USER_LIST, $url)
             ->send();
@@ -65,7 +71,7 @@ class UserRepository
 
     /**
      * @param User $user
-     * @return array|bool|float|int|string
+     * @return array
      * @throws ResponseErrorException
      */
     public function add(User $user)
@@ -87,6 +93,66 @@ class UserRepository
             $response = $exception->getResponse();
             if ($response->getStatusCode() === Response::HTTP_UNPROCESSABLE_ENTITY) {
                 throw new ValidationErrorException($response);
+            }
+        }
+
+        throw new ResponseErrorException(sprintf('Response error. Status code: %s', $response->getStatusCode()));
+    }
+
+    /**
+     * @param User $user
+     * @return array|bool|float|int|string
+     * @throws ResponseErrorException
+     */
+    public function edit(User $user)
+    {
+        try {
+            $url = $this->generateUrl(sprintf('%s/%s', self::URL_USER_EDIT, $user->id));
+            $response = $this->client
+                ->createRequest(
+                    self::METHOD_USER_EDIT,
+                    $url,
+                    $this->header,
+                    json_encode($user)
+                )->send();
+
+            if ($response->getStatusCode() === Response::HTTP_OK) {
+                return $response->json();
+            }
+
+        } catch (BadResponseException $exception) {
+            $response = $exception->getResponse();
+            if ($response->getStatusCode() === Response::HTTP_UNPROCESSABLE_ENTITY) {
+                throw new ValidationErrorException($response);
+            }
+        }
+
+        throw new ResponseErrorException(sprintf('Response error. Status code: %s', $response->getStatusCode()));
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     * @throws NotFoundUserException
+     * @throws ResponseErrorException
+     */
+    public function delete(User $user)
+    {
+        try {
+            $url = $this->generateUrl(
+                sprintf('%s/%s', self::URL_USER_DELETE, $user->id)
+            );
+
+            $response = $this->client->createRequest(self::METHOD_USER_DELETE, $url, $this->header)->send();
+
+            if ($response->getStatusCode() === Response::HTTP_OK) {
+                return $response->json();
+            }
+
+        } catch (BadResponseException $exception) {
+            $response = $exception->getResponse();
+            if ($response->getStatusCode() === Response::HTTP_NOT_FOUND) {
+                throw new NotFoundUserException('Not found user with id: ' . $user->id);
             }
         }
 
