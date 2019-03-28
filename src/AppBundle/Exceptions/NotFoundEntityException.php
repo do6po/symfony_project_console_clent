@@ -9,7 +9,7 @@
 namespace AppBundle\Exceptions;
 
 
-class NotFoundUserException extends \Exception
+class NotFoundEntityException extends \Exception
 {
     protected $code = 404;
 }

@@ -10,7 +10,7 @@ namespace AppBundle\Repository;
 
 
 use AppBundle\Entity\User;
-use AppBundle\Exceptions\NotFoundUserException;
+use AppBundle\Exceptions\NotFoundEntityException;
 use AppBundle\Exceptions\ResponseErrorException;
 use AppBundle\Exceptions\ValidationErrorException;
 use Guzzle\Http\Exception\BadResponseException;
@@ -105,7 +105,7 @@ class UserRepository extends AbstractRepository
     /**
      * @param User $user
      * @return array
-     * @throws NotFoundUserException
+     * @throws NotFoundEntityException
      * @throws ResponseErrorException
      */
     public function delete(User $user)
@@ -124,7 +124,7 @@ class UserRepository extends AbstractRepository
         } catch (BadResponseException $exception) {
             $response = $exception->getResponse();
             if ($response->getStatusCode() === Response::HTTP_NOT_FOUND) {
-                throw new NotFoundUserException('Not found user with id: ' . $user->id);
+                throw new NotFoundEntityException('Not found user with id: ' . $user->id);
             }
         }
 

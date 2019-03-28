@@ -9,6 +9,7 @@
 namespace AppBundle\Services;
 
 
+use AppBundle\Entity\Group;
 use AppBundle\Entity\User;
 use AppBundle\Repository\GroupRepository;
 use AppBundle\Repository\UserRepository;
@@ -66,7 +67,7 @@ class UserService
     /**
      * @param User $user
      * @return array
-     * @throws \AppBundle\Exceptions\NotFoundUserException
+     * @throws \AppBundle\Exceptions\NotFoundEntityException
      * @throws \AppBundle\Exceptions\ResponseErrorException
      */
     public function delete(User $user): array
@@ -81,5 +82,26 @@ class UserService
     public function groupAll()
     {
         return $this->groupRepository->all();
+    }
+
+    /**
+     * @param $group
+     * @return array
+     * @throws \AppBundle\Exceptions\NotFoundEntityException
+     * @throws \AppBundle\Exceptions\ResponseErrorException
+     */
+    public function deleteGroup(Group $group)
+    {
+        return $this->groupRepository->delete($group);
+    }
+
+    /**
+     * @param Group $group
+     * @return array|bool|float|int|string
+     * @throws \AppBundle\Exceptions\ResponseErrorException
+     */
+    public function addGroup(Group $group)
+    {
+        return $this->groupRepository->add($group);
     }
 }
