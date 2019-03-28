@@ -9,7 +9,7 @@
 namespace AppBundle\Entity;
 
 
-class Group implements \JsonSerializable
+class Group extends AbstractEntity
 {
     /**
      * @var int
@@ -25,6 +25,11 @@ class Group implements \JsonSerializable
      * @var User[]
      */
     public $user = [];
+
+    public function entityName(): string
+    {
+        return 'Group';
+    }
 
     /**
      * @return array

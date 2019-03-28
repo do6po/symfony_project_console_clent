@@ -79,7 +79,7 @@ class UserService
      * @return array
      * @throws \AppBundle\Exceptions\ResponseErrorException
      */
-    public function groupAll()
+    public function allGroups()
     {
         return $this->groupRepository->all();
     }

@@ -10,12 +10,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class UserCreateCommand extends BasicAbstractCommand
+class UserAddCommand extends BasicAbstractCommand
 {
     protected function configure()
     {
         $this
-            ->setName('user:create')
+            ->setName('user:add')
             ->setDescription('Add user')
             ->addArgument('name', InputArgument::REQUIRED, 'User name')
             ->addArgument('email', InputArgument::REQUIRED, 'Email name');

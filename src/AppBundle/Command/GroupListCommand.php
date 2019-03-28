@@ -24,7 +24,7 @@ class GroupListCommand extends BasicAbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $groups = $this->userServices->groupAll();
+        $groups = $this->userServices->allGroups();
 
         $table = new Table($output);
 
