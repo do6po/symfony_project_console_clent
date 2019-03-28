@@ -104,4 +104,19 @@ class UserService
     {
         return $this->groupRepository->add($group);
     }
+
+    /**
+     * @param Group $group
+     * @return array|bool|float|int|string
+     * @throws \AppBundle\Exceptions\ResponseErrorException
+     */
+    public function editGroup(Group $group)
+    {
+        return $this->groupRepository->edit($group);
+    }
+
+    public function fetchUsersFromGroup(Group $group): array
+    {
+        return $this->groupRepository->userList($group);
+    }
 }

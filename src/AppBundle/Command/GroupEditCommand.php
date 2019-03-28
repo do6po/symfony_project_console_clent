@@ -10,35 +10,32 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GroupAddCommand extends BasicAbstractCommand
+class GroupEditCommand extends BasicAbstractCommand
 {
     protected function configure()
     {
         $this
-            ->setName('group:add')
-            ->setDescription('Add new group')
+            ->setName('group:edit')
+            ->setDescription('...')
+            ->addArgument('group_id', InputArgument::REQUIRED, 'Group id')
             ->addArgument('name', InputArgument::REQUIRED, 'Group name');
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int|null|void
-     * @throws \AppBundle\Exceptions\ResponseErrorException
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $group = new Group();
+
+        $group->id = $input->getArgument('group_id');
         $group->name = $input->getArgument('name');
 
         try {
-            $createdUser = $this->userServices->addGroup($group);
+            $editedUser = $this->userServices->editGroup($group);
 
             $table = new Table($output);
 
             $table
-                ->setHeaders(array_keys($createdUser))
-                ->setRows([$createdUser])
+                ->setHeaders(array_keys($editedUser))
+                ->setRows([$editedUser])
                 ->render();
 
             $output->writeln('Create successfully');
@@ -55,6 +52,10 @@ class GroupAddCommand extends BasicAbstractCommand
                 ->setHeaders(array_keys($errors))
                 ->setRows($convertedErrors)
                 ->render();
+
+        } catch (\Exception $exception) {
+            $output->writeln(sprintf('Editing error: %s', $exception->getMessage()));
         }
     }
+
 }
