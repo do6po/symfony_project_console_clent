@@ -27,6 +27,8 @@ class GroupUsersCommand extends BasicAbstractCommand
             $users = $this->userServices->fetchUsersFromGroup($group);
             $table = new Table($output);
 
+            $output->writeln(sprintf('Users in group with id: %s', $group->id));
+
             $table
                 ->setHeaders(['ID', 'Name', 'Email'])
                 ->setRows($users)

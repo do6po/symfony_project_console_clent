@@ -115,8 +115,38 @@ class UserService
         return $this->groupRepository->edit($group);
     }
 
+    /**
+     * @param Group $group
+     * @return array
+     * @throws \AppBundle\Exceptions\NotFoundEntityException
+     * @throws \AppBundle\Exceptions\ResponseErrorException
+     */
     public function fetchUsersFromGroup(Group $group): array
     {
         return $this->groupRepository->userList($group);
+    }
+
+    /**
+     * @param Group $group
+     * @param User $user
+     * @return array|bool|float|int|string
+     * @throws \AppBundle\Exceptions\NotFoundEntityException
+     * @throws \AppBundle\Exceptions\ResponseErrorException
+     */
+    public function addUserToGroup(Group $group, User $user)
+    {
+        return $this->groupRepository->addUserToGroup($group, $user);
+    }
+
+    /**
+     * @param Group $group
+     * @param User $user
+     * @return array|bool|float|int|string
+     * @throws \AppBundle\Exceptions\NotFoundEntityException
+     * @throws \AppBundle\Exceptions\ResponseErrorException
+     */
+    public function delUserFromGroup(Group $group, User $user)
+    {
+        return $this->groupRepository->delUserFromGroup($group, $user);
     }
 }
