@@ -13,7 +13,7 @@ exec = $(d) exec
 
 ssh_command = $(exec) -it
 
-build_command = $(dc) build --force-recreate
+build_command = $(dc) up -d --build --force-recreate
 
 ssh_to_console_command = $(ssh_command) $(console) bash
 
